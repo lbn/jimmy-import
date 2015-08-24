@@ -1,0 +1,32 @@
+supplements:
+- date: 2015-07-16T01:58:00Z
+  dose: 0.213
+  name: zinc
+- date: 2015-07-17T01:40:00Z
+  dose: 5
+  name: creatine
+- date: 2015-07-17T01:43:00Z
+  dose: 0.213
+  name: zinc
+- date: 2015-07-17T13:43:00Z
+  dose: 5
+  name: creatine
+- date: 2015-07-18T01:41:00Z
+  dose: 0.192
+  name: zinc
+- date: 2015-07-19T00:24:00Z
+  dose: 5
+  name: creatine
+- date: 2015-07-19T03:19:00Z
+  dose: 0.234
+  name: zinc
+- date: 2015-07-19T16:17:00Z
+  dose: 5
+  name: creatine
+- date: 2015-07-19T16:23:00Z
+  dose: 8
+  name: beta
+- date: 2015-07-19T16:23:00Z
+  dose: 5
+  name: citrulline
+

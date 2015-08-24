@@ -4,13 +4,29 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"regexp"
 	"strconv"
 	"strings"
 	"time"
+
+	"gopkg.in/yaml.v2"
 )
+
+func parseYaml(file string) (entries Source, err error) {
+	type SupFile struct {
+		Supplements []Entry
+	}
+
+	contents, err := ioutil.ReadFile(file)
+	var sup SupFile
+	err = yaml.Unmarshal([]byte(contents), &sup)
+
+	entries = sup.Supplements
+	return
+}
 
 func parseMarkdown(file string) (entries Source, err error) {
 	// e.g. 22.08.2015
@@ -55,7 +71,7 @@ func parseMarkdown(file string) (entries Source, err error) {
 			date := time.Date(year, time.Month(month), day, hour, minute, 0, 0,
 				time.UTC)
 
-			entries = append(entries, &Entry{date, Unit(dose) *
+			entries = append(entries, Entry{date, Unit(dose) *
 				ParseUnit(unit), name, misc})
 		}
 		if err != nil {
@@ -85,12 +101,18 @@ func main() {
 
 	// Obtain an array of parsed sources to be merged
 	for i, file := range inputFiles {
+		var (
+			err     error
+			entries Source
+		)
 		switch filepath.Ext(file) {
 		case ".md":
-			entries, err := parseMarkdown(file)
-			if err == nil {
-				sources[i] = entries
-			}
+			entries, err = parseMarkdown(file)
+		case ".yaml":
+			entries, err = parseYaml(file)
+		}
+		if err == nil {
+			sources[i] = entries
 		}
 	}
 

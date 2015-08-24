@@ -2,6 +2,7 @@ package main
 
 import (
 	"gopkg.in/yaml.v2"
+
 	"sort"
 	"time"
 )
@@ -14,7 +15,7 @@ type Entry struct {
 }
 
 // Source
-type Source []*Entry
+type Source []Entry
 
 func (source *Source) ToYaml() string {
 	type YamlNode map[string]interface{}
