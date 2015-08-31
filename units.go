@@ -16,10 +16,6 @@ func ParseUnit(s string) (u Unit) {
 	return
 }
 
-func (u Unit) Grams() int {
-	return 2
-}
-
 const (
 	Microgram Unit = 1.0e-6
 	Milligram Unit = 1.0e-3

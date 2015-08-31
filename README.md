@@ -17,4 +17,4 @@ Merge multiple files in this format:
           dose: 0.25
 
 ## Usage
-    jimmy-import example.md [example2.md] > example.yaml
+    jimmy-import --merge example.md [example2.yaml] --schema data/schema.yaml > example.yaml

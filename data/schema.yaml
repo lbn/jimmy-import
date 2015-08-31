@@ -1,0 +1,42 @@
+---
+  id: "http://www.archer.onl/jimmy-import/schema"
+  $schema: "http://json-schema.org/draft-04/schema#"
+  description: "jimmy-import schema"
+  type: "object"
+  required: 
+    - "supplements"
+  properties: 
+    supplements: 
+      type: "array"
+      items: 
+        type: "object"
+        oneOf: 
+          - $ref: "#/definitions/generic"
+          - $ref: "#/definitions/coffee"
+  definitions: 
+    generic: 
+      properties: 
+        date: 
+          type: "string"
+        dose: 
+          type: "number"
+        name: 
+          type: "string"
+      required: ["date", "dose", "name"]
+      additionalProperties: false
+    coffee: 
+      properties: 
+        date: 
+          type: "string"
+        dose: 
+          type: "number"
+        name: 
+          type: "string"
+        brand: 
+          type: "string"
+        strength: 
+          type: "number"
+      required: ["date", "dose", "name", "brand", "strength"]
+      order:    ["brand", "strength"]
+      additionalProperties: false
+

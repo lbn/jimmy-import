@@ -4,6 +4,7 @@ import (
 	"gopkg.in/yaml.v2"
 
 	"sort"
+	"strconv"
 	"time"
 )
 
@@ -11,13 +12,13 @@ type Entry struct {
 	Date time.Time
 	Dose Unit
 	Name string
-	Misc []string
+	Misc map[string]string
 }
 
 // Source
 type Source []Entry
 
-func (source *Source) ToYaml() string {
+func (source *Source) ToYaml(schema *Schema) string {
 	type YamlNode map[string]interface{}
 
 	nodes := make([]YamlNode, len(*source))
@@ -26,6 +27,16 @@ func (source *Source) ToYaml() string {
 		m["date"] = entry.Date
 		m["name"] = entry.Name
 		m["dose"] = entry.Dose
+
+		// Set supplement-specific properties
+		for prop, value := range entry.Misc {
+			switch schema.Definitions[entry.Name].Properties[prop].Type {
+			case "string":
+				m[prop] = value
+			case "number":
+				m[prop], _ = strconv.Atoi(value)
+			}
+		}
 		nodes[i] = m
 	}
 
@@ -48,7 +59,7 @@ func (entries ByDate) Less(i, j int) bool {
 	return entries[i].Date.Before(entries[j].Date)
 }
 
-func merge(sources []Source) string {
+func merge(sources []Source, schema *Schema) string {
 	totalLen := 0
 	for _, src := range sources {
 		totalLen += len(src)
@@ -62,5 +73,5 @@ func merge(sources []Source) string {
 
 	sort.Sort(ByDate(combined))
 
-	return combined.ToYaml()
+	return combined.ToYaml(schema)
 }

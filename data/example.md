@@ -13,5 +13,8 @@
 * 00:24 5g creatine
 * 03:19 234mg zinc
 * 16:17 5g creatine
-* 16:23 8g beta alanine
+* 16:23 8g beta_alanine
 * 16:23 5g citrulline
+
+# 20.07.2015
+* 15:32 10g coffee Taylors 4 
